@@ -26,4 +26,11 @@ SELECT `Country Name` as Country_Name, count(COUNTRY) as Number_of_Samples FROM
 	pdp_samples JOIN country_code on pdp_samples.COUNTRY = country_code.`Country Code`
 		GROUP BY `Country Name`
 			ORDER BY Number_of_Samples DESC;
+            
+-- Commodities tested and Lab used 
+SELECT DISTINCT `COMMODITY NAME` , COUNT(*) AS Samples  FROM 
+commodity_code JOIN pdp_results ON commodity_code.`Commodity Code`=pdp_results.COMMOD
+GROUP BY `COMMODITY NAME`
+ORDER BY Samples DESC;
+
 
