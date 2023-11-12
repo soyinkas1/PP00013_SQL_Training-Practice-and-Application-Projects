@@ -11,8 +11,19 @@ SELECT * FROM pdp_results
 SELECT * FROM pdp_samples
 	LIMIT 5;
 -- Number of distinct samples that results was collected about
-SELECT COUNT(DISTINCT SAMPLE_PK) FROM pdp_results /* 1535 */
+SELECT COUNT(DISTINCT SAMPLE_PK) FROM pdp_results /* 1535 */;
 
--- Country of origin of the distinct samples
-
+-- Country of origin of the distinct samples (country name not code)
+SELECT DISTINCT SAMPLE_PK, `Country Name` as Country_Name, COUNTRY as Country_Code  FROM 
+	pdp_samples JOIN country_code on pdp_samples.COUNTRY = country_code.`Country Code`;
+  
+-- Distint countries from which samples was collected
+SELECT DISTINCT `Country Name` as Country_Name, COUNTRY as Country_Code  FROM 
+	pdp_samples JOIN country_code on pdp_samples.COUNTRY = country_code.`Country Code`;
+    
+-- Count of Samples from each country from highest to lowest
+SELECT `Country Name` as Country_Name, count(COUNTRY) as Number_of_Samples FROM 
+	pdp_samples JOIN country_code on pdp_samples.COUNTRY = country_code.`Country Code`
+		GROUP BY `Country Name`
+			ORDER BY Number_of_Samples DESC;
 
